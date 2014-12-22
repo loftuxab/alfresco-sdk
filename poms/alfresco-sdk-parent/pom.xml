@@ -48,7 +48,7 @@
     <alfresco.client.war>${alfresco.repo.artifactId}</alfresco.client.war>
     <alfresco.client.war.groupId>${alfresco.groupId}</alfresco.client.war.groupId>
     <alfresco.client.war.version>${alfresco.version}</alfresco.client.war.version>
-    
+
     <!-- IMPORTANT! Override this only if you know what you're doing; it could break amp-to-war overlay -->
     <alfresco.client.war.folder>${project.build.directory}/${project.build.finalName}-war</alfresco.client.war.folder>
 
@@ -98,7 +98,7 @@
          -->
     <app.log.dir>${project.build.directory}/</app.log.dir>
     <app.log.root.level>WARN</app.log.root.level>
-    
+
     <!-- Needed for community to avoid weird logging exceptions -->
     <app.slf4j.scope>runtime</app.slf4j.scope>
     <app.slf4j.version>1.5.11</app.slf4j.version>
@@ -130,13 +130,13 @@
     <maven.jetty.version>7.4.0.v20110414</maven.jetty.version>
   </properties>
 
-  <!-- This repository is only needed to retrieve Alfresco parent POM. 
-        NOTE: This can be removed when/if Alfresco will be on Maven Central 
-        
+  <!-- This repository is only needed to retrieve Alfresco parent POM.
+        NOTE: This can be removed when/if Alfresco will be on Maven Central
+
         NOTE: The repository to be used for Alfresco Enterprise artifacts is
         https://artifacts.alfresco.com/nexus/content/groups/private/. Please check
         with Alfresco Support to get credentials to add to your ~/.m2/settings.xml
-        if you are a Enterprise customer or Partner  
+        if you are a Enterprise customer or Partner
         -->
     <repositories>
         <repository>
@@ -221,6 +221,7 @@
               <nonFilteredFileExtension>jpg</nonFilteredFileExtension>
               <nonFilteredFileExtension>png</nonFilteredFileExtension>
               <nonFilteredFileExtension>gif</nonFilteredFileExtension>
+              <nonFilteredFileExtension>psd</nonFilteredFileExtension>
               <nonFilteredFileExtension>svg</nonFilteredFileExtension>
               <nonFilteredFileExtension>pdf</nonFilteredFileExtension>
               <nonFilteredFileExtension>doc</nonFilteredFileExtension>
@@ -500,11 +501,11 @@
                   </execution>
               </executions>
             </plugin>
-        </plugins>        
+        </plugins>
       </build>
-      
+
     </profile>
-    
+
     <!-- Enables alfresco testing dependencies if a src/test/java folder is found, by adding appropriate dependencies -->
     <profile>
     	<id>enable-alfresco-testing</id>
@@ -522,7 +523,7 @@
                   <configuration>
                       <argLine>${app.testing.jvm.args}</argLine>
                       <additionalClasspathElements>
-                         <!-- Adds both the module config to test classpath --> 
+                         <!-- Adds both the module config to test classpath -->
                          <additionalClasspathElement>${project.build.directory}/${project.build.finalName}/config</additionalClasspathElement>
                       </additionalClasspathElements>
                   </configuration>
@@ -545,7 +546,7 @@
     	</dependencies>
     </profile>
 
-    <!-- Profile to enable rapid application development with JRebel. Automatically generates rebel.xml files. 
+    <!-- Profile to enable rapid application development with JRebel. Automatically generates rebel.xml files.
     	 NOTE: This experimental feature added in the SDK 1.1.0 is now deprecated as of version 2.x in favor of spring-loaded.
          Use at your own risk. This profile needs to be called explicitly with -Pjrebel -->
     <profile>
@@ -645,10 +646,10 @@
                 <includeWebResources>false</includeWebResources>
             </configuration>
           </plugin>
-          <!-- Configures tomcat to run against the Alfresco WAR with Tomcat7 virtual webapp features. 
-               (http://tomcat.apache.org/tomcat-7.0-doc/config/context.html#Virtual_webapp)	 	
-          	   The target/classes and target/test-classes (containing tests and the amp config for test purposes) are prepended to the 
-          	   running webapp context, so changes from the IDE are automatically picked up first. See context.xml for details. 
+          <!-- Configures tomcat to run against the Alfresco WAR with Tomcat7 virtual webapp features.
+               (http://tomcat.apache.org/tomcat-7.0-doc/config/context.html#Virtual_webapp)
+          	   The target/classes and target/test-classes (containing tests and the amp config for test purposes) are prepended to the
+          	   running webapp context, so changes from the IDE are automatically picked up first. See context.xml for details.
           -->
           <plugin>
             <groupId>org.apache.tomcat.maven</groupId>
@@ -744,7 +745,7 @@
                          <requireProperty>
                             <property>alfresco.version</property>
                             <message>The SDK 2.x is supported only for Alfresco 5.x Community and Enterprise versions</message>
-                            <regex>^5\..*</regex>
+                            <regex>^5\..*|LX.*</regex>
                          </requireProperty>
                          <!-- Test for JDK version -->
                          <requireJavaVersion>
@@ -786,9 +787,9 @@
             </plugins>
        </build>
     </profile>
-    
+
     <!--
-    	 Enables working with Alfresco Enterprise latest version. You can then manually override the alfresco.version in your pom.xml 
+    	 Enables working with Alfresco Enterprise latest version. You can then manually override the alfresco.version in your pom.xml
     -->
     <profile>
         <id>enterprise</id>
@@ -797,7 +798,7 @@
             <alfresco.repo.artifactId>alfresco-enterprise</alfresco.repo.artifactId>
             <alfresco.share.artifactId>share-enterprise</alfresco.share.artifactId>
             <!-- Not needed in the webapp for enterprise -->
-			<app.slf4j.scope>provided</app.slf4j.scope>                        
+			<app.slf4j.scope>provided</app.slf4j.scope>
         </properties>
         <repositories>
             <repository>
@@ -966,7 +967,7 @@
                         </execution>
                     </executions>
                 </plugin>
-            </plugins>  
+            </plugins>
         </build>
         <dependencies>
               <!-- h2 Dependency -->

@@ -117,6 +117,15 @@ public class AmpMojo extends AbstractMojo {
     protected File classesDirectory;
 
     /**
+     * (Read Only) Directory containing the classes and resource files that should be packaged into the JAR.
+     *
+     * @parameter default-value="${project.build.outputDirectory}/META-INF/"
+     * @required
+     * @readonly
+     */
+    protected File metaInfDirectory;
+
+    /**
      * (Read Only) The Maven project.
      *
      * @parameter default-value="${project}"
@@ -157,6 +166,7 @@ public class AmpMojo extends AbstractMojo {
         File jarFile = createJarArchive();
         if (this.attachClasses) {
             this.projectHelper.attachArtifact(this.project, "jar", "classes", jarFile);
+            this.projectHelper.attachArtifact(this.project, "jar", "META-INF", jarFile);
         }
 
         File ampFile = createArchive();
@@ -191,7 +201,8 @@ public class AmpMojo extends AbstractMojo {
         jarArchiver.setOutputFile(jarFile);
         
         try {
-            jarArchiver.getArchiver().addDirectory(this.classesDirectory, new String[] {}, new String[] {});
+            jarArchiver.getArchiver().addDirectory(this.classesDirectory, new String[]{}, new String[]{});
+            jarArchiver.getArchiver().addDirectory(this.metaInfDirectory,"/META-INF/", new String[] {}, new String[] {});
             jarArchiver.createArchive(this.session, this.project, this.archive);
             return jarFile;
         }
